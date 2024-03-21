@@ -54,7 +54,14 @@ func NewOracleCSBackend(bucket string, prefix string, region string, compartment
 		if err != nil {
 			panic(err)
 		}
-	} else {
+	}
+ 
+        if authMethod == "OkeWorkloadIdentity" {
+                config, err = auth.OkeWorkloadIdentityConfigurationProvider()
+                if err != nil {
+                        panic(err)
+                }
+        } else {
 		config = common.DefaultConfigProvider()
 	}
 
